@@ -2,25 +2,15 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-let tasks = [
-  { id: 1, title: "Initial task (altered)", completed: true },
-  { id: 2, title: "Install Git and Node.js (altered)", "completed": true },
-  { id: 2, title: "Learn DevOps basics (atered)", completed: false }
-  
-];
+// Import the tasks router
+const tasksRouter = require('./routes/tasks');
 
+// Welcome route
 app.get('/', (req, res) => {
   res.json({ message: "DevOps Task Manager API is running (Lab 1)" });
 });
 
-app.get('/tasks', (req, res) => {
-  res.json(tasks);
-});
+// Use the router for /tasks
+app.use('/tasks', tasksRouter);
 
-app.post('/tasks', (req, res) => {
-  const newTask = { id: tasks.length+1, title: req.body.title, completed: false };
-  tasks.push(newTask);
-  res.status(201).json(newTask);
-});
-
-app.listen(3000, ()=> console.log("API running on port 3000"));
+app.listen(3000, () => console.log("API running on port 3000"));
