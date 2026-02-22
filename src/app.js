@@ -7,7 +7,7 @@ const tasksRouter = require('./routes/tasks');
 
 // Welcome route
 app.get('/', (req, res) => {
-  res.json({ message: "WELCOME FROM FEATURE BRANCH" });
+  res.json({ message: "Welcome from FEATURE branch" });
 });
 
 // Use the router for /tasks
