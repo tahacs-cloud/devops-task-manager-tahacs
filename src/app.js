@@ -7,18 +7,21 @@ const tasksRouter = require('./routes/tasks');
 
 // Welcome route
 app.get('/', (req, res) => {
-
-  res.json({ message: "Welcome from FEATURE branch" });
-
-  res.json({ message: "WELCOME FROM MAIN BRANCH" });
-  res.json({ message: "WELCOME FROM FEATURE BRANCH" });
-
+  res.json({ message: "Task Manager API running (Lab2)" });
 });
 
 // Use the router for /tasks
 app.use('/tasks', tasksRouter);
 
-app.listen(3000, () => console.log("API running on port 3000"));
+// --- FIX STARTS HERE ---
 
-// CI test change
-console.log("Testing CI with a Pull Request");
+// This "if" block ensures the server only starts if you run 'node src/app.js'
+// It will NOT run when 'npm test' imports this file.
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log("API running on port 3000");
+  });
+}
+
+// You MUST export the app so that tests/app.test.js can use it
+module.exports = app;
